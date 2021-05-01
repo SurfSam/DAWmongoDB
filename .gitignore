@@ -1,4 +1,5 @@
 database/*
+mongo_cluster/*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

@@ -14,8 +14,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --shardsvr --replSet mongoRS1 --dbpath /data/db --port 27017'
+    command: mongod --shardsvr --replSet mongoRS1 --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -35,8 +34,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --shardsvr --replSet mongoRS2 --dbpath /data/db --port 27017'
+    command: mongod --shardsvr --replSet mongoRS2 --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -56,8 +54,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --shardsvr --replSet mongoRS3 --dbpath /data/db --port 27017'
+    command: mongod --shardsvr --replSet mongoRS3 --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -74,8 +71,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017'
+    command: mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -92,8 +88,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017'
+    command: mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -110,8 +105,7 @@ services:
     expose:
       - "27017"
     # ?
-    command:
-      - 'mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017'
+    command: mongod --configsvr --replSet mongoRS1conf --dbpath /data/db --port 27017
     # ?
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -126,8 +120,7 @@ services:
       - mongoCFG1
       - mongoCFG2
     # ?
-    command:
-      - 'mongos --configdb mongors1conf/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017'
+    command: mongos --configdb mongors1conf/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017
     # ?
     ports:
       - "27019:27017"
@@ -147,8 +140,7 @@ services:
       - mongoCFG1
       - mongoCFG2
     # ?
-    command:
-      - 'mongos --configdb mongors1conf/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017'
+    command: mongos --configdb mongors1conf/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017
     # ?
     ports:
       - "27020:27017"
