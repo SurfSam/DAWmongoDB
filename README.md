@@ -18,6 +18,20 @@
 ## Check:
 `docker exec -it router bash -c "echo 'sh.status()' | mongo "`
 
+# Create database on replica set 1 (primary node):
+`docker exec -it mongoRS1n1 bash -c "echo 'use food' | mongo"`
+
+# Enable sharding for created database on router:
+`docker exec -it router bash -c "echo 'sh.enableSharding(\"food\")' | mongo "` 
+
+# Create collection on sharded database:
+`docker exec -it mongoRS1n1 bash -c "echo 'db.createCollection(\"food.fruits\")' | mongo "`
+
+# Enable sharding for created collection 'fruits':
+`docker exec -it router bash -c "echo 'sh.shardCollection(\"food.fruits\", {\"shardKey\" : 1})' | mongo "`
+
+# Show sharded database on shard2:
+`docker exec -it mongoRS2n1 bash -c "echo 'show databases' | mongo "`
 ___
 mongoRS1 (replica set1)
 mongoRS1n1 (node 1 in replica set1)
