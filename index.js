@@ -1,4 +1,5 @@
 /* MongoDB */
+const connection = require('./routes/connection.js');
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
 
@@ -13,23 +14,16 @@ app.use(express.static('website'));
 
 /* App */
 app.get('/', (req, res) => {
-    res.sendFile('index.html');
+    res.sendFile('/index.html');
 })
 
-app.get('/checkConnection'),(req, res) => {
-    //var replicaSetPorts = req.body.replicaSetPorts;
-    //var dbName = req.body.databaseName;
-    console.log("checkConnection GET");
-    res.send('checkConnection GET');
-    //var status = checkConnection(replicaSetPorts, dbName);
-    //res.json(status);
-}
+app.use(connection.getRouter());
 
 app.listen(expressPort, () => {
   console.log(`Example app listening at http://localhost:${expressPort}`)
 })
 
-function checkConnection(_ports, _dbName){
+function _checkConnection(_ports, _dbName){
     var url;
     var status = {};
     _ports.forEach(port => {
