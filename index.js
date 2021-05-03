@@ -14,6 +14,9 @@ app.get('/', (req, res) => {
 var checkConnection = require('./routes/checkReplicaSetsStatus.js');
 app.use('/checkReplicaSetsStatus', checkConnection);
 
+var dashboard = require('./routes/dashboard.js');
+app.use('/dashboard', dashboard);
+
 app.listen(expressPort, () => {
   console.log(`Example app listening at http://localhost:${expressPort}`)
 })
