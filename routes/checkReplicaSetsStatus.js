@@ -40,10 +40,10 @@ async function checkStatus(_port, _url){
       const client = await MongoClient.connect(_url, { useNewUrlParser: true })
          .catch(err => { console.log(err); });
          if (!client) {
-            rsStatus.status = false;
+            rsStatus.online = false;
             return rsStatus;
          }else{
-            rsStatus.status = client.isConnected();
+            rsStatus.online = client.isConnected();
             client.close();
          }
    }catch (err) {
