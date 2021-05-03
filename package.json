@@ -1,0 +1,22 @@
+{
+  "name": "mongo_webapp",
+  "version": "1.0.0",
+  "description": "```bash docker exec -it mongoCFG1 bash -c \"echo 'rs.initiate({_id: \\\"configServerRS\\\",configsvr: true, members: [{ _id : 0, host : \\\"mongoCFG1\\\" },{ _id : 1, host : \\\"mongoCFG2\\\" }, { _id : 2, host : \\\"mongoCFG3\\\" }]})' | mongo\" ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SurfSam/DAWmongoDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SurfSam/DAWmongoDB/issues"
+  },
+  "homepage": "https://github.com/SurfSam/DAWmongoDB#readme",
+  "dependencies": {
+    "mongodb": "^3.6.6"
+  }
+}
