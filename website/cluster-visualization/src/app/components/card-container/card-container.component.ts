@@ -16,7 +16,36 @@ export class CardContainerComponent implements OnInit {
   ngOnInit(): void {
 
     // Get nodes from API
-    this.httpService.getNodes().subscribe(data => this.nodes = data);
+    //this.httpService.getNodes().subscribe(data => this.nodes = data);
+    this.nodes = [
+      {
+        name: "Test1",
+        state: "Primary",
+        isOnline: true
+      },
+      {
+        name: "Test2",
+        state: "Secondary",
+        isOnline: true
+      },{
+        name: "Test3",
+        state: "Secondary",
+        isOnline: true
+      },{
+        name: "Test1",
+        state: "Primary",
+        isOnline: true
+      },
+      {
+        name: "Test2",
+        state: "Secondary",
+        isOnline: true
+      },{
+        name: "Test3",
+        state: "Secondary",
+        isOnline: true
+      }
+    ];
   }
 
 }

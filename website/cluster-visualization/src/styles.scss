@@ -1,2 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body{
+    
+}
+
+.node-container, .table-container{
+    padding: 1em;
+}
+
+.node-container{
+    .cards-container{
+        display: flex;
+        flex-wrap: wrap;
+    
+        .card{
+            width: 12em;
+            margin: 1em;
+            cursor: pointer;
+    
+            .card-header{
+                color: #ffffff;
+                font-weight: bold;
+    
+                &.card-status-offline{
+                    background-color: #dc3545!important;
+                }
+                &.card-status-online{
+                    background-color: #28a745!important;
+                }
+            }
+    
+            .card-header, .card-body, .card-footer{
+                text-align: center;
+    
+            }
+    
+            .card-footer{
+                font-weight: 300;
+                font-style: italic;
+                font-size: 14px;
+                padding-top: 0.5em;
+                padding-bottom: 0.5em;
+            }
+
+            .active{
+                border-width: 2px;
+            }
+        }
+    }
+}
+
