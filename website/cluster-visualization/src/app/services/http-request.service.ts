@@ -13,6 +13,10 @@ export class HttpRequestService {
   constructor(private http: HttpClient) { }
 
   getNodes(): Observable<NodeEntity[]> {
-    return this.http.get<NodeEntity[]>(`${this.serverUrl}/nodes`);
+    return this.http.get<NodeEntity[]>(`${this.serverUrl}/status`);
+  }
+
+  getNodeData(name: string): Observable<Object> {
+    return this.http.get<Object>(`${this.serverUrl}/data/${name}`);
   }
 }

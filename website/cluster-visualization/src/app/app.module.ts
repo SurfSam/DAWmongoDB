@@ -7,12 +7,14 @@ import { CardContainerComponent } from './components/card-container/card-contain
 import { NodeCardComponent } from './components/node-card/node-card.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { TableContainerComponent } from './components/table-container/table-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardContainerComponent,
-    NodeCardComponent
+    NodeCardComponent,
+    TableContainerComponent
   ],
   imports: [
     BrowserModule,

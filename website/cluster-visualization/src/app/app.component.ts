@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpRequestService } from './services/http-request.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cluster-visualization';
+
+  tableData: Object = {};
+
+  constructor(private httpService: HttpRequestService) { }
+
+  onNodeClick(name: string) {
+    console.log(`Clicked ${name} app.components`);
+    this.httpService.getNodeData(name).subscribe(data => this.tableData = data);
+  }
+
 }

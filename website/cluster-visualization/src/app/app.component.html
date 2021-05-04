@@ -1,8 +1,8 @@
 <div class="cards-area">
-  <app-card-container></app-card-container>
+  <app-card-container (nodeClick)="onNodeClick($event)"></app-card-container>
 </div>
 <div class="table-area">
-  Table
+  <app-table-container [data]="tableData"></app-table-container>
 </div>
 
 <router-outlet></router-outlet>
