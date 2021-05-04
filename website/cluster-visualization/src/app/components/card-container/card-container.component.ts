@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeEntity } from '../../interfaces/NodeEntity';
+import { HttpRequestService } from '../../services/http-request.service';
 
 @Component({
   selector: 'app-card-container',
@@ -8,23 +9,14 @@ import { NodeEntity } from '../../interfaces/NodeEntity';
 })
 export class CardContainerComponent implements OnInit {
 
-  nodes: NodeEntity[] = [
-    {
-      name: "Test1",
-      isPrimary: false,
-      isOnline: true,
-    },
-    {
-      name: "Test2",
-      isPrimary: true,
-      isOnline: true,
-    },
-  ];
+  nodes: NodeEntity[] = [];
 
-  constructor() { }
+  constructor(private httpService: HttpRequestService) { }
 
   ngOnInit(): void {
-    // console.log(this.nodes);
+
+    // Get nodes from API
+    this.httpService.getNodes().subscribe(data => this.nodes = data);
   }
 
 }

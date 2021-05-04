@@ -1,5 +1,5 @@
 export interface NodeEntity {
     name: string;
-    isPrimary: boolean;
+    state: string;
     isOnline: boolean;
 }

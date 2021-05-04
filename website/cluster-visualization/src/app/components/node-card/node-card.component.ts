@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NodeEntity } from 'src/app/interfaces/NodeEntity';
+import { HttpRequestService } from '../../services/http-request.service';
 
 @Component({
   selector: 'app-node-card',
@@ -13,7 +14,6 @@ export class NodeCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.node);
   }
 
 }
