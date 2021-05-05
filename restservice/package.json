@@ -1,9 +1,10 @@
 {
-  "name": "mongo_webapp",
+  "name": "daw_restservice",
   "version": "1.0.0",
-  "description": "```bash docker exec -it mongoCFG1 bash -c \"echo 'rs.initiate({_id: \\\"configServerRS\\\",configsvr: true, members: [{ _id : 0, host : \\\"mongoCFG1\\\" },{ _id : 1, host : \\\"mongoCFG2\\\" }, { _id : 2, host : \\\"mongoCFG3\\\" }]})' | mongo\" ```",
+  "description": "restservice providing information and data from mongodb cluster",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
