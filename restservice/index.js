@@ -1,8 +1,15 @@
 /* Express */
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const app = express();
 const expressPort = 3000;
+
+var corsOptions = {
+  origin: '*'
+};
+
+app.use(cors(corsOptions));
 
 /* Static HTML */
 app.use(express.static("website"));
