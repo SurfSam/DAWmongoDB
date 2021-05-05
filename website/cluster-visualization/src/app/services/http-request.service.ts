@@ -8,12 +8,12 @@ import { NodeEntity } from '../interfaces/NodeEntity';
 })
 export class HttpRequestService {
 
-  private serverUrl = "http://localhost/3000";
+  private serverUrl = "http://localhost:3000";
 
   constructor(private http: HttpClient) { }
 
   getNodes(): Observable<NodeEntity[]> {
-    return this.http.get<NodeEntity[]>(`${this.serverUrl}/status`);
+    return this.http.get<NodeEntity[]>(`${this.serverUrl}/node/status`);
   }
 
   getNodeData(name: string): Observable<Object> {
