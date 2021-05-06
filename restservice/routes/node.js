@@ -128,17 +128,17 @@ async function _collectNodeState(_dbName) {
  */
 async function _nodeState(_port, _dbName) {
   var url;
-  var info = {};
+  var info = null;
   try {
     url = `mongodb://localhost:${_port}/admin?readPreference=primaryPreferred`;
     info = await _readState(url, _dbName);
   } catch (err) {
     console.log(err);
   }
-  if (info != {}) {
+  if (info != null) {
     info.isOnline = true;
   } else {
-    info.isOnline = false;
+    info = { isOnline: false };
   }
   return info;
 }
@@ -195,7 +195,7 @@ async function _readCollection(_url, _dbName, _collectionName) {
  * @returns state information
  */
 async function _readState(_url, _dbName) {
-  let data = {};
+  let data = null;
   let client = null;
   try {
     client = await new MongoClient(_url, {
