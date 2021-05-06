@@ -20,17 +20,8 @@ export class CardContainerComponent implements OnInit {
     // Get nodes from API
     this.httpService.getNodes().subscribe(data => {
       console.log(data);
-      
-      let asArray = Object.entries(data).map(( [k, v] ) => ({ [k]: v }));
-      let nodes: NodeEntity[] = [];
 
-      asArray.forEach(entry => {
-        let values = Object.values(entry)[0];
-        values.name = Object.keys(entry)[0];
-        nodes.push(values);
-      })
-      
-      this.nodes = nodes;
+      this.nodes = data;
     });
   }
 
