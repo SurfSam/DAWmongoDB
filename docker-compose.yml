@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+  # Shard 1:
   # ReplicaSet1 Node 1
   mongoRS1n1:
     image: mongo
@@ -7,15 +8,15 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27017 to container port 27017
     ports:
       - "27017:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS1 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data1:/data/db
@@ -27,15 +28,15 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27027 to container port 27027
     ports:
       - "27027:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS1 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data2:/data/db
@@ -47,19 +48,20 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27037 to container port 27037
     ports:
       - "27037:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS1 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data3:/data/db
 
+  # Shard 2:
   # ReplicaSet2 Node 1
   mongoRS2n1:
     image: mongo
@@ -67,15 +69,15 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27047 to container port 27047
     ports:
       - "27047:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS2 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data4:/data/db
@@ -87,15 +89,15 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27057 to container port 27057
     ports:
       - "27057:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS2 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data5:/data/db
@@ -107,66 +109,67 @@ services:
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Map machine port 27067 to container port 27067
     ports:
       - "27067:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as member of a shard replica set
     command: mongod --shardsvr --replSet mongoRS2 --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database/data6:/data/db
 
-  # Config Server 1
+  # Config Servers:    
+  # ReplicaSet Config Server 1
   mongoCFG1:
     image: mongo
     container_name: mongoCFG1
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as config server
     command: mongod --configsvr --replSet configServerRS --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./mongo_cluster/config1:/data/db
 
-  # Config Server 2
+  # ReplicaSet Config Server 2
   mongoCFG2:
     image: mongo
     container_name: mongoCFG2
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as config server
     command: mongod --configsvr --replSet configServerRS --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./mongo_cluster/config2:/data/db
 
-  # Config Server 3
+  # ReplicaSet Config Server 3
   mongoCFG3:
     image: mongo
     container_name: mongoCFG3
     # Terminal emulator: xterm
     environment:
       - TERM=xterm
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # Configures mongodb as config server
     command: mongod --configsvr --replSet configServerRS --dbpath /data/db --port 27017
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./mongo_cluster/config3:/data/db
@@ -179,37 +182,17 @@ services:
     depends_on: 
       - mongoCFG1
       - mongoCFG2
-    # ?
+    # Configures mongodb as router server
     command: mongos --configdb configServerRS/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017
-    # ?
+    # Map machine port 27019 to container port 27019
     ports:
       - "27019:27017"
-    # ?
+    # Container listens on Port at runtime
     expose:
       - "27017"
-    # ?
+    # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
-
-  # Router Instance 2
-  #router2:
-    #image: mongo
-    #container_name: router2
-    # ?
-    #depends_on: 
-      #- mongoCFG1
-      #- mongoCFG2
-    # ?
-    #command: mongos --configdb configServerRS/mongoCFG1:27017,mongoCFG2:27017,mongoCFG3:27017 --port 27017
-    # ?
-    #ports:
-      #- "27020:27017"
-    # ?
-    #expose:
-      #- "27017"
-    # ?
-    #volumes:
-      #- /etc/localtime:/etc/localtime:ro
 
 volumes:
   volume:

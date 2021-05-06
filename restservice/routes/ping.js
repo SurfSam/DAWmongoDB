@@ -10,6 +10,9 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
+/**
+ * POST get online status of shard nodes
+ */
 router.post("/", function (req, res) {
   var replicaSetPorts = req.body.replicaSetPorts;
   var dbName = req.body.databaseName;
@@ -20,6 +23,12 @@ router.post("/", function (req, res) {
   });
 });
 
+/**
+ * check online status of all shard nodes
+ * @param {number} _ports 
+ * @param {string} _dbName 
+ * @returns 
+ */
 async function checkReplicaSetsStatus(_ports, _dbName) {
   var url;
   const status = {};
@@ -36,6 +45,12 @@ async function checkReplicaSetsStatus(_ports, _dbName) {
   return status;
 }
 
+/**
+ * check if it is possible to connect to mongodb at given url and port
+ * @param {number} _port 
+ * @param {string} _url 
+ * @returns status object
+ */
 async function checkStatus(_port, _url) {
   var rsStatus = {};
   try {

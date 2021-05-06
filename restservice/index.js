@@ -6,7 +6,7 @@ const app = express();
 const expressPort = 3000;
 
 var corsOptions = {
-  origin: '*'
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
