@@ -34,9 +34,7 @@ router.get("/data/:name", function (req, res) {
  * GET content for all nodes
  */
 router.get("/data", function (req, res) {
-  _collectNodeData(DATABASE_NAME, COLLECTION_NAME).then(function (
-    clusterData
-  ) {
+  _collectNodeData(DATABASE_NAME, COLLECTION_NAME).then(function (clusterData) {
     res.json(clusterData);
   });
 });
@@ -44,11 +42,11 @@ router.get("/data", function (req, res) {
 /**
  * GET status information
  */
- router.get("/status/:name", function (req, res) {
+router.get("/status/:name", function (req, res) {
   const nodeName = req.params.name;
   const nodeInfo = REPLICA_SET.filter((elm) => elm.name == nodeName);
   if (nodeInfo && nodeInfo.length == 1 && nodeInfo[0]) {
-    _nodeState(nodeInfo[0].port, DATABASE_NAME).then(function ( nodeStatus ) {
+    _nodeState(nodeInfo[0].port, DATABASE_NAME).then(function (nodeStatus) {
       res.json(nodeStatus);
     });
   } else {
@@ -60,18 +58,16 @@ router.get("/data", function (req, res) {
  * GET status information for all nodes
  */
 router.get("/status", function (req, res) {
-  _collectNodeState(DATABASE_NAME).then(function (
-    clusterStatus
-  ) {
+  _collectNodeState(DATABASE_NAME).then(function (clusterStatus) {
     res.json(clusterStatus);
   });
 });
 
 /**
  * collect data
- * @param {string} _dbName 
- * @param {string} _collectionName 
- * @returns 
+ * @param {string} _dbName
+ * @param {string} _collectionName
+ * @returns
  */
 async function _collectNodeData(_dbName, _collectionName) {
   var info = {};
@@ -104,36 +100,16 @@ async function _nodeData(_port, _dbName, _collectionName) {
   return info;
 }
 
-// /**
-//  * state
-//  * @param {string} _dbName
-//  * @param {string} _collectionName
-//  * @returns
-//  */
-// async function _collectNodeState(_dbName, _collectionName) {
-//   var url;
-//   const info = {};
-//   try {
-//     for (const node of REPLICA_SET) {
-//       url = `mongodb://localhost:${node.port}/admin?readPreference=primaryPreferred`;
-//       info[node.name] = await _readState(url, _dbName);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-//   return info;
-// }
-
 /**
  * state
  * @param {string} _dbName
  * @returns
  */
- async function _collectNodeState(_dbName) {
+async function _collectNodeState(_dbName) {
   var info = {};
   try {
     for (const node of REPLICA_SET) {
-      info[node.name] = await _nodeState(node.port, _dbName)
+      info[node.name] = await _nodeState(node.port, _dbName);
     }
   } catch (err) {
     console.log(err);
@@ -146,14 +122,19 @@ async function _nodeData(_port, _dbName, _collectionName) {
  * @param {string} _dbName
  * @returns
  */
- async function _nodeState(_port, _dbName) {
+async function _nodeState(_port, _dbName) {
   var url;
   var info = {};
   try {
-      url = `mongodb://localhost:${_port}/admin?readPreference=primaryPreferred`;
-      info = await _readState(url, _dbName);
+    url = `mongodb://localhost:${_port}/admin?readPreference=primaryPreferred`;
+    info = await _readState(url, _dbName);
   } catch (err) {
     console.log(err);
+  }
+  if (info != {}) {
+    info.isOnline = true;
+  } else {
+    info.isOnline = false;
   }
   return info;
 }
@@ -174,12 +155,12 @@ async function _readCollection(_url, _dbName, _collectionName) {
     client = await new MongoClient(_url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: CONNECTION_TIMEOUT_MS // fast fail
+      serverSelectionTimeoutMS: CONNECTION_TIMEOUT_MS, // fast fail
     }).connect();
     // fast fail
     if (!client || client.isConnected() == false) {
       return {};
-    } 
+    }
     let dbRequest = () => {
       return new Promise((resolve, reject) => {
         client
@@ -216,12 +197,12 @@ async function _readState(_url, _dbName) {
     client = await new MongoClient(_url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: CONNECTION_TIMEOUT_MS // fast fail
+      serverSelectionTimeoutMS: CONNECTION_TIMEOUT_MS, // fast fail
     }).connect();
     // fast fail
     if (!client) {
       return {};
-    } 
+    }
     let dbRequest = () => {
       return new Promise((resolve, reject) => {
         client
