@@ -1,4 +1,7 @@
-<h1>Dashboard</h1>
+<div class="dashboard-header-container">
+  <h1>Dashboard</h1>
+  <a href="http://localhost:4200" class="btn btn-danger">Reload</a>
+</div>
 <div class="node-container">
   <h2>Nodes</h2>
   <div class="cards-area">
@@ -6,7 +9,17 @@
   </div>
 </div>
 <div class="table-container">
-  <h2>Table</h2>
+  <div class="collection-heading">
+    <div class="collection-db">
+      <h3 class="custom-h3">Database:</h3>
+      <span class="collection-db-value">[dbName]</span>
+    </div>
+    <div class="collection-name">
+      <h3 class="custom-h3">Collection:</h3>
+      <span class="collection-name-value">[collectionName]</span>
+    </div>
+  </div>
+  
   <div class="table-area">
     <app-table-container [dataArr]="tableArr"></app-table-container>
   </div>
