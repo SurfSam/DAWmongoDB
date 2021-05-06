@@ -1,8 +1,15 @@
-<div class="cards-area">
-  <app-card-container (nodeClick)="onNodeClick($event)"></app-card-container>
+<h1>Dashboard</h1>
+<div class="node-container">
+  <h2>Nodes</h2>
+  <div class="cards-area">
+    <app-card-container (nodeClick)="onNodeClick($event)"></app-card-container>
+  </div>
 </div>
-<div class="table-area">
-  <app-table-container [dataArr]="tableArr"></app-table-container>
+<div class="table-container">
+  <h2>Table</h2>
+  <div class="table-area">
+    <app-table-container [dataArr]="tableArr"></app-table-container>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
