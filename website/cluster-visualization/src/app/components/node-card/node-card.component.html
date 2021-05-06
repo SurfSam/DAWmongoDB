@@ -1,5 +1,9 @@
 <div class="card">
-    <div class="card-header card-status-online card-status-offline">{{node.isOnline ? "Online" : "Offline"}}</div>
+    <div [ngClass]="{
+        'card-header': true,
+        'card-status-online': node.isOnline,
+        'card-status-offline': !node.isOnline
+    }">{{node.isOnline ? "Online" : "Offline"}}</div>
     <div class="card-body">
         <div class="node-name">{{node.name}}</div>
     </div>
