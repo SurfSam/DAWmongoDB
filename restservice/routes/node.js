@@ -70,10 +70,12 @@ router.get("/status", function (req, res) {
  * @returns
  */
 async function _collectNodeData(_dbName, _collectionName) {
-  var info = {};
+  var info = [];
   try {
     for (const node of REPLICA_SET) {
-      info[node.name] = await _nodeData(node.port, _dbName, _collectionName);
+      let result = await _nodeData(node.port, _dbName, _collectionName);
+      result.name = node.name;
+      info.push(result);
     }
   } catch (err) {
     console.log(err);
@@ -106,10 +108,12 @@ async function _nodeData(_port, _dbName, _collectionName) {
  * @returns
  */
 async function _collectNodeState(_dbName) {
-  var info = {};
+  var info = [];
   try {
     for (const node of REPLICA_SET) {
-      info[node.name] = await _nodeState(node.port, _dbName);
+      let result = await _nodeState(node.port, _dbName);
+      result.name = node.name;
+      info.push(result);
     }
   } catch (err) {
     console.log(err);
