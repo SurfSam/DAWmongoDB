@@ -7,10 +7,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableContainerComponent implements OnInit {
 
-  @Input() data;
+  @Input() dataArr: any[];
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
+  getData(data: any): string {
+    let temp = {...data};
+
+    delete temp._id;
+    delete temp.shardKey;
+    return JSON.stringify(temp);
+  }
 }

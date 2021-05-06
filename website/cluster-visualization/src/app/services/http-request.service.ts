@@ -17,6 +17,6 @@ export class HttpRequestService {
   }
 
   getNodeData(name: string): Observable<Object> {
-    return this.http.get<Object>(`${this.serverUrl}/data/${name}`);
+    return this.http.get<Object>(`${this.serverUrl}/node/data/${name}`);
   }
 }

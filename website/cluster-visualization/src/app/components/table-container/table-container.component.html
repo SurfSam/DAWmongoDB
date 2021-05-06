@@ -1,1 +1,17 @@
-<p>table-container works!</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">_id</th>
+            <th scope="col">ShardKey</th>
+            <th scope="col">Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr scope="row" *ngFor="let data of dataArr">
+            <td>{{data._id}}</td>
+            <td>{{data.shardKey}}</td>
+            <td>{{getData(data)}}</td>
+        </tr>
+        <!-- <app-table-row *ngFor="let data of dataArr" [data]="data"></app-table-row> -->
+    </tbody>
+</table>

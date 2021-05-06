@@ -8,13 +8,16 @@ import { HttpRequestService } from './services/http-request.service';
 })
 export class AppComponent {
 
-  tableData: Object = {};
+  tableArr: any[];
 
   constructor(private httpService: HttpRequestService) { }
 
   onNodeClick(name: string) {
     console.log(`Clicked ${name} app.components`);
-    this.httpService.getNodeData(name).subscribe(data => this.tableData = data);
+    this.httpService.getNodeData(name).subscribe(data => {
+      console.log(data);
+      this.tableArr = Object.values(data);
+    });
   }
 
 }

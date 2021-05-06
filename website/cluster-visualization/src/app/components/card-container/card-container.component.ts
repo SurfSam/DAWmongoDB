@@ -32,13 +32,6 @@ export class CardContainerComponent implements OnInit {
       
       this.nodes = nodes;
     });
-    // this.nodes = [
-    //   {
-    //     name: "Test1",
-    //     state: "Primary",
-    //     isOnline: true
-    //   }
-    // ];
   }
 
   onClick(name: string) {
