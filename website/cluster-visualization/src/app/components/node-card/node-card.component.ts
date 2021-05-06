@@ -8,6 +8,7 @@ import { NodeEntity } from 'src/app/interfaces/NodeEntity';
 })
 export class NodeCardComponent implements OnInit {
 
+  @Input() activeNodeName: string = "";
   @Input() node: NodeEntity;
 
   constructor() { }

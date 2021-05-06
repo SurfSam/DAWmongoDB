@@ -10,6 +10,7 @@ import { HttpRequestService } from '../../services/http-request.service';
 export class CardContainerComponent implements OnInit {
 
   nodes: NodeEntity[] = [];
+  activeNodeName: string = "";
 
   @Output() nodeClick = new EventEmitter<string>();
 
@@ -26,6 +27,7 @@ export class CardContainerComponent implements OnInit {
   }
 
   onClick(name: string) {
+    this.activeNodeName = name;
     this.nodeClick.emit(name);
   }
 

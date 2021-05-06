@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [class.active]="activeNodeName == node.name">
     <div [ngClass]="{
         'card-header': true,
         'card-status-online': node.isOnline,
