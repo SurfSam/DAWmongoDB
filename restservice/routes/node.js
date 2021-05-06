@@ -74,8 +74,7 @@ async function _collectNodeData(_dbName, _collectionName) {
   try {
     for (const node of REPLICA_SET) {
       let result = await _nodeData(node.port, _dbName, _collectionName);
-      result.name = node.name;
-      info.push(result);
+      info.push({name: node.name, data: result});
     }
   } catch (err) {
     console.log(err);
