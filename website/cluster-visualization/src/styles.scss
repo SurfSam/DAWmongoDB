@@ -42,10 +42,14 @@ body{
                 font-size: 14px;
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
+
+                &.empty{
+                    display: none;
+                }
             }
 
-            .active{
-                border-width: 2px;
+            &.active{
+                border-color: #000000;
             }
         }
     }
