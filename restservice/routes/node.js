@@ -17,10 +17,20 @@ const router = express.Router();
  * GET content from node
  */
 router.get("/data/:name", function (req, res) {
+  let dbName = DATABASE_NAME;
+  let collectionName = COLLECTION_NAME;
+
   const nodeName = req.params.name;
+  if (req.query.db) {
+    dbName = req.query.db;
+  }
+  if (req.query.collection) {
+    collectionName = req.query.collection;
+  }
+
   const nodeInfo = REPLICA_SET.filter((elm) => elm.name == nodeName);
   if (nodeInfo && nodeInfo.length == 1 && nodeInfo[0]) {
-    _nodeData(nodeInfo[0].port, DATABASE_NAME, COLLECTION_NAME).then(function (
+    _nodeData(nodeInfo[0].port, dbName, collectionName).then(function (
       nodeData
     ) {
       res.json(nodeData);
@@ -34,7 +44,15 @@ router.get("/data/:name", function (req, res) {
  * GET content for all nodes
  */
 router.get("/data", function (req, res) {
-  _collectNodeData(DATABASE_NAME, COLLECTION_NAME).then(function (clusterData) {
+  let dbName = DATABASE_NAME;
+  let collectionName = COLLECTION_NAME;
+  if (req.query.db) {
+    dbName = req.query.db;
+  }
+  if (req.query.collection) {
+    collectionName = req.query.collection;
+  }
+  _collectNodeData(dbName, collectionName).then(function (clusterData) {
     res.json(clusterData);
   });
 });
@@ -43,10 +61,14 @@ router.get("/data", function (req, res) {
  * GET status information
  */
 router.get("/status/:name", function (req, res) {
+  let dbName = DATABASE_NAME;
+  if (req.query.db) {
+    dbName = req.query.db;
+  }
   const nodeName = req.params.name;
   const nodeInfo = REPLICA_SET.filter((elm) => elm.name == nodeName);
   if (nodeInfo && nodeInfo.length == 1 && nodeInfo[0]) {
-    _nodeState(nodeInfo[0].port, DATABASE_NAME).then(function (nodeStatus) {
+    _nodeState(nodeInfo[0].port, dbName).then(function (nodeStatus) {
       res.json(nodeStatus);
     });
   } else {
@@ -58,7 +80,11 @@ router.get("/status/:name", function (req, res) {
  * GET status information for all nodes
  */
 router.get("/status", function (req, res) {
-  _collectNodeState(DATABASE_NAME).then(function (clusterStatus) {
+  let dbName = DATABASE_NAME;
+  if (req.query.db) {
+    dbName = req.query.db;
+  }
+  _collectNodeState(dbName).then(function (clusterStatus) {
     res.json(clusterStatus);
   });
 });
@@ -74,7 +100,7 @@ async function _collectNodeData(_dbName, _collectionName) {
   try {
     for (const node of REPLICA_SET) {
       let result = await _nodeData(node.port, _dbName, _collectionName);
-      info.push({name: node.name, data: result});
+      info.push({ name: node.name, data: result });
     }
   } catch (err) {
     console.log(err);
