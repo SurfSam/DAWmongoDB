@@ -34,7 +34,7 @@ const FRUIT_TYPES = [
     }
 ];
 
-var resultData = [];
+var result_string = "";
 var type_count = {};
 
 initTypeCounts(type_count);
@@ -45,12 +45,12 @@ for (let i = 0; i < 1000; i++) {
     newFruit.fruit_id = `${newFruit.skBase}${++type_count[newFruit.type]}`;
     delete newFruit.skBase;
 
-    resultData.push(newFruit);
+    result_string += JSON.stringify(newFruit);
 }
 
-let jsonData = JSON.stringify(resultData);
+// let jsonData = JSON.stringify(result_string);
 
-fs.writeFileSync(path.join(__dirname, '/data/fruitExample.json'), jsonData);
+fs.writeFileSync(path.join(__dirname, '/data/fruitExample.json'), result_string);
 
 function initTypeCounts(dict) {
     FRUIT_TYPES.forEach(fruit => dict[fruit.type] = 0);
