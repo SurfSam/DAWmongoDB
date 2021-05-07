@@ -1,8 +1,14 @@
 <div class="cards-container">
     <div class="shard1 card">
-        <app-node-card *ngFor="let node of nodesS1" [node]="node" [activeNodeName]="activeNodeName" (click)="onClick(node.name)"></app-node-card>
+        <h3 class="text-center">Shard 1</h3>
+        <div class="shard-container">
+            <app-node-card *ngFor="let node of nodesS1" [node]="node" [activeNodeName]="activeNodeName" (click)="onClick(node.name)"></app-node-card>
+        </div>
     </div>
     <div class="shard2 card">
-        <app-node-card *ngFor="let node of nodesS2" [node]="node" [activeNodeName]="activeNodeName" (click)="onClick(node.name)"></app-node-card>
+        <h3 class="text-center">Shard 2</h3>
+        <div class="shard-container">
+            <app-node-card *ngFor="let node of nodesS2" [node]="node" [activeNodeName]="activeNodeName" (click)="onClick(node.name)"></app-node-card>
+        </div>
     </div>
 </div>

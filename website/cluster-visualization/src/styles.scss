@@ -17,14 +17,27 @@ body{
 }
 
 .node-container{
+    margin-bottom: 1em;
+
     .cards-container{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+
+        .shard1.card, .shard2.card{
+            width: fit-content;
+            margin: 0.25em 0.25em;
+            padding: 0.5em;
+
+            .shard-container{
+                display: flex;
+                flex-direction: row;
+            }
+        }
     
         .card{
             width: 12em;
-            margin: 1em;
+            margin: 0.5em;
             cursor: pointer;
     
             .card-header{
