@@ -15,8 +15,10 @@ export class AppComponent {
   onNodeClick(name: string) {
     console.log(`Clicked ${name} app.components`);
     this.httpService.getNodeData(name).subscribe(data => {
-      console.log(data);
-      this.tableArr = Object.values(data);
+      let values  = Object.values(data);
+
+      values = values.sort((a,b) => a._id.localeCompare(b._id));
+      this.tableArr = values;
     });
   }
 
