@@ -20,12 +20,7 @@ export class CardContainerComponent implements OnInit {
   ngOnInit(): void {
 
     // Get nodes from API
-    this.httpService.getNodes().subscribe(data => {
-      console.log(data);
-
-      this.nodesS1 = data.splice(0, 3);
-      this.nodesS2 = data;
-    });
+    setInterval(this.fetchData, 3000);
   }
 
   onClick(name: string) {
@@ -33,4 +28,11 @@ export class CardContainerComponent implements OnInit {
     this.nodeClick.emit(name);
   }
 
+  fetchData() {
+      this.httpService.getNodes().subscribe(data => {
+      console.log(data);
+
+      this.nodesS1 = data.splice(0, 3);
+      this.nodesS2 = data;
+  }
 }
