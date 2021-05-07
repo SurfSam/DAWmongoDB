@@ -51,12 +51,17 @@ docker exec -it mongoRS1n1 bash -c "echo 'db.createCollection(\"food.fruits\")' 
 
 ## Enable sharding for created collection 'fruits':
 ```bash
-docker exec -it router bash -c "echo 'sh.shardCollection(\"food.fruits\", {\"shardKey\" : 1})' | mongo "
+docker exec -it router bash -c "echo 'sh.shardCollection(\"food.fruits\", {\"fruit_id\" : "hashed"})' | mongo "
 ```
 
 ## Show sharded database on shard2:
 ```bash
 docker exec -it mongoRS2n1 bash -c "echo 'show databases' | mongo "
+```
+
+## Insert example data:
+```bash
+docker exec -it router bash -c "mongoimport --db food --collection fruits --file ./var/www/html/fruitExample.json"
 ```
 ___
 mongoRS1 (replica set1)
@@ -66,3 +71,5 @@ configServerRS (config servers replica set1)
 mongoCFG1 (node 1 in config servers replica set1)
 
 router (router)
+
+db.fruits.getShardDistribution()

@@ -193,6 +193,7 @@ services:
     # use bind mounts to sync time and store database content on host machine 
     volumes:
       - /etc/localtime:/etc/localtime:ro
-
+      - ./sample-data/data:/var/www/html
+      
 volumes:
   volume:

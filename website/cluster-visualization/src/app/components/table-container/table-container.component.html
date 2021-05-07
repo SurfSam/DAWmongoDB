@@ -2,14 +2,14 @@
     <thead>
         <tr>
             <th scope="col">_id</th>
-            <th scope="col">ShardKey</th>
+            <th scope="col">fruit_id</th>
             <th scope="col">Data</th>
         </tr>
     </thead>
     <tbody>
         <tr scope="row" *ngFor="let data of dataArr">
             <td>{{data._id}}</td>
-            <td>{{data.shardKey}}</td>
+            <td>{{data.fruit_id}}</td>
             <td>{{getData(data)}}</td>
         </tr>
         <!-- <app-table-row *ngFor="let data of dataArr" [data]="data"></app-table-row> -->

@@ -16,7 +16,7 @@ export class TableContainerComponent implements OnInit {
     let temp = {...data};
 
     delete temp._id;
-    delete temp.shardKey;
+    delete temp.fruit_id;
     return JSON.stringify(temp);
   }
 }
