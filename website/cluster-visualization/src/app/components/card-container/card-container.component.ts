@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable, interval } from 'rxjs';
-import { exhaustMap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { NodeEntity } from '../../interfaces/NodeEntity';
 import { HttpRequestService } from '../../services/http-request.service';
 
@@ -14,7 +14,6 @@ export class CardContainerComponent implements OnInit {
   nodesS1: NodeEntity[] = [];
   nodesS2: NodeEntity[] = [];
   activeNodeName: string = "";
-  intervalId: number = null;
 
   @Output() nodeClick = new EventEmitter<string>();
 
@@ -23,7 +22,7 @@ export class CardContainerComponent implements OnInit {
   ngOnInit(): void {
 
     // Get nodes from API
-    this.intervalId = setInterval(this.fetchData, 3000);
+    this.fetchData();
   }
 
   onClick(name: string) {
@@ -32,17 +31,10 @@ export class CardContainerComponent implements OnInit {
   }
 
   fetchData(): void {
-    interval(3000).pipe(exhaustMap(this.httpService.getNodes)
+    timer(0, 3000).pipe(mergeMap(() => this.httpService.getNodes())
     ).subscribe(data => {
-
       this.nodesS1 = data.splice(0, 3);
       this.nodesS2 = data;
     });
-  }
-
-  ngOnDestroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
   }
 }
