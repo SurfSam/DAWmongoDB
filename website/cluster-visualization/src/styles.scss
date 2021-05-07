@@ -80,17 +80,25 @@ body{
     .collection-heading, .collection-name, .collection-db{
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-end;
+    }
+
+    .collection-heading{
+        margin-bottom: 0.25em;
     }
 
     .collection-name{
         padding-left: 2em;
-
-        
     }
     .custom-h3{
         font-size: 24px;
         padding-right: 0.35em;
         margin: 0;
+        line-height: 1;
+    }
+
+    .collection-name-value, .collection-db-value{
+        font-size: 24px;
+        line-height: 1;
     }
 }
