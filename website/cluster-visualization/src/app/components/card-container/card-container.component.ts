@@ -29,10 +29,11 @@ export class CardContainerComponent implements OnInit {
   }
 
   fetchData() {
-      this.httpService.getNodes().subscribe(data => {
+    this.httpService.getNodes().subscribe(data => {
       console.log(data);
 
       this.nodesS1 = data.splice(0, 3);
       this.nodesS2 = data;
+    });
   }
 }
