@@ -9,7 +9,8 @@ import { HttpRequestService } from '../../services/http-request.service';
 })
 export class CardContainerComponent implements OnInit {
 
-  nodes: NodeEntity[] = [];
+  nodesS1: NodeEntity[] = [];
+  nodesS2: NodeEntity[] = [];
   activeNodeName: string = "";
 
   @Output() nodeClick = new EventEmitter<string>();
@@ -22,7 +23,8 @@ export class CardContainerComponent implements OnInit {
     this.httpService.getNodes().subscribe(data => {
       console.log(data);
 
-      this.nodes = data;
+      this.nodesS1 = data.splice(0, 3);
+      this.nodesS2 = data;
     });
   }
 
