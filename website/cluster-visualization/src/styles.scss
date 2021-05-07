@@ -8,8 +8,7 @@ body{
 .dashboard-header-container{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center
 }
 
 .node-container, .table-container, .dashboard-header-container{
@@ -17,12 +16,11 @@ body{
 }
 
 .node-container{
-    margin-bottom: 1em;
 
     .cards-container{
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
 
         .shard1.card, .shard2.card{
             width: fit-content;
