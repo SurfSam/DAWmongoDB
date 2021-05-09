@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "start": "concurrently \"node ./restservice/index.js\" \"cd website/cluster-visualization && ng serve --open\" \"docker-compose up\" "
+    }
+}
