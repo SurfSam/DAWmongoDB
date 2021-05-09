@@ -17,6 +17,7 @@ docker exec -it mongoCFG1 bash -c "echo 'rs.status()' | mongo"
 ## Build shard replica:
 ```bash
 docker exec -it mongoRS1n1 bash -c "echo 'rs.initiate({_id : \"mongoRS1\", members: [{ _id : 0, host : \"mongoRS1n1\" },{ _id : 1, host : \"mongoRS1n2\" },{ _id : 2, host : \"mongoRS1n3\" }]})' | mongo"
+
 docker exec -it mongoRS2n1 bash -c "echo 'rs.initiate({_id : \"mongoRS2\", members: [{ _id : 0, host : \"mongoRS2n1\" },{ _id : 1, host : \"mongoRS2n2\" },{ _id : 2, host : \"mongoRS2n3\" }]})' | mongo"
 ```
 
@@ -28,6 +29,7 @@ docker exec -it mongoRS1n1 bash -c "echo 'rs.status()' | mongo"
 ## Define shard and introduces it to the router:
 ```bash
 docker exec -it router bash -c "echo 'sh.addShard(\"mongoRS1/mongoRS1n1\")' | mongo "
+
 docker exec -it router bash -c "echo 'sh.addShard(\"mongoRS2/mongoRS2n1\")' | mongo "
 ```
 
@@ -66,4 +68,16 @@ docker exec -it mongoRS2n1 bash -c "echo 'show databases' | mongo "
 ## Insert example data:
 ```bash
 docker exec -it router bash -c "mongoimport --db food --collection fruits --file ./var/www/html/fruitExample.json"
+```
+
+## Partial data when shard failed
+```bash
+db.fruits.find({fruit_id:"pi1"})
+# returns document from shard 2
+
+db.fruits.find({})
+# returns Error
+
+db.fruits.find({}).allowPartialResults()
+# returns partial results
 ```

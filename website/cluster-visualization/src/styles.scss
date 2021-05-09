@@ -22,6 +22,22 @@ body{
         flex-wrap: wrap;
         justify-content: space-between;
 
+        span {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        .shard1, .shard2 {
+            position: relative;
+
+            &>span{
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 0.75em 1em 0 0;
+              
+            }
+        }
+
         .shard1.card, .shard2.card{
             width: fit-content;
             margin: 0.25em 0.25em;

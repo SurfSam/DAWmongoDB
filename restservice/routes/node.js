@@ -81,10 +81,11 @@ router.get("/status/:name", function (req, res) {
  */
 router.get("/status", function (req, res) {
   let dbName = DATABASE_NAME;
+  let collectionName = COLLECTION_NAME;
   if (req.query.db) {
     dbName = req.query.db;
   }
-  _collectNodeState(dbName).then(function (clusterStatus) {
+  _collectNodeState(dbName, collectionName).then(function (clusterStatus) {
     res.json(clusterStatus);
   });
 });
@@ -132,11 +133,11 @@ async function _nodeData(_port, _dbName, _collectionName) {
  * @param {string} _dbName
  * @returns
  */
-async function _collectNodeState(_dbName) {
+async function _collectNodeState(_dbName, _collectionName) {
   var info = [];
   try {
     for (const node of REPLICA_SET) {
-      let result = await _nodeState(node.port, _dbName);
+      let result = await _nodeState(node.port, _dbName, _collectionName);
       result.name = node.name;
       info.push(result);
     }
@@ -151,12 +152,22 @@ async function _collectNodeState(_dbName) {
  * @param {string} _dbName
  * @returns
  */
-async function _nodeState(_port, _dbName) {
+async function _nodeState(_port, _dbName, _collectionName) {
   var url;
   var info = null;
+  var count = 0;
   try {
     url = `mongodb://localhost:${_port}/admin?readPreference=primaryPreferred`;
     info = await _readState(url, _dbName);
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    url = `mongodb://localhost:${_port}/${_dbName}?readPreference=primaryPreferred`;
+    count = await _readCount(url, _dbName, _collectionName);
+    if(info) {
+      info.count = count;
+    }
   } catch (err) {
     console.log(err);
   }
@@ -169,6 +180,42 @@ async function _nodeState(_port, _dbName) {
 }
 
 /* mongodb CRUD */
+
+
+async function _readCount(_url, _dbName, _collectionName) {
+  let data = {};
+  let client = null;
+  try {
+    client = await new MongoClient(_url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: CONNECTION_TIMEOUT_MS, // fast fail
+    }).connect();
+    // fast fail
+    if (!client || client.isConnected() == false) {
+      return {};
+    }
+    let dbRequest = () => {
+      return new Promise((resolve, reject) => {
+        client
+          .db(_dbName)
+          .collection(_collectionName)
+          .countDocuments(function (err, result) {
+            err ? reject(err) : resolve(result);
+          });
+      });
+    };
+    data = await dbRequest();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    if (client) {
+      client.close();
+    }
+  }
+  return data;
+}
 
 /**
  * read data

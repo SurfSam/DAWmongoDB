@@ -9,5 +9,7 @@ export interface NodeEntity {
     lastElectionDate: string;
     votingMembersCount: number;
     lastElectionReason: string;
+
+    count: number;
     
 }
