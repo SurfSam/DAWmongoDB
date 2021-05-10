@@ -1,7 +1,7 @@
 # DAW Demonstrator: MongoDB Cluster
+The following instructions describe how to create a MongoDB cluster with sharding and replication to store data distributed and ensure high availability. For visualization purposes, an Angular app hooked to an Express-backend was developed to display the status of the individual database nodes, as well as the data distributed onto them in real time.
 
-This demonstrator shows how to create a MongoDB cluster with sharding and replication to store data distributed and ensure high availability.
-
+This project was developed as part of a course regarding data analysis in the web.
 # Live-Demo Part 1
 
 ## Config server replica set:
